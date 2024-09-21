@@ -1,5 +1,7 @@
 package com.cydeo.service.impl;
 
+import com.cydeo.enums.AccountType;
+import com.cydeo.exception.AccountOwnerShipException;
 import com.cydeo.exception.BadRequestException;
 import com.cydeo.exception.BalanceNotSufficientException;
 import com.cydeo.exception.UnderConstructionException;
@@ -48,14 +50,13 @@ public class TransactionServiceServiceImpl implements TransactionService {
 
     private void executeBalanceAndUpdateIfRequired(BigDecimal amount,Account sender,Account receiver){
         if (checkSenderBalance(sender,amount)){
-            sender.setBalance(sender.getBalance().subcontract(amount));
+            sender.setBalance(sender.getBalance().subtract(amount));
 
             receiver.setBalance(receiver.getBalance().add(amount));
         }else {
             throw new BalanceNotSufficientException("Balance is not enough for this trnsfer");
         }
     }
-
 
 
 
@@ -71,9 +72,22 @@ public class TransactionServiceServiceImpl implements TransactionService {
 
     }
 
+    private boolean checkSenderBalance(Account sender,BigDecimal amount){
+        return sender.getBalance().subtract(amount).compareTo(BigDecimal.ZERO) >=0;
+    }
+
+    private boolean checkAccountOwnerShip(Account sender,Account receiver) {
+        if ((sender.getAccountType().equals(AccountType.SAVING) || receiver.getAccountType().equals(AccountType.SAVING))
+                && !sender.getUserId().equals(receiver.getUserId())) {
+            throw new AccountOwnerShipException("If one of the account is saving,user must be the same for sender and receiver");
+        }
 
 
-    private void findAccountById(UUID id) {
+    }
+
+
+
+        private void findAccountById(UUID id) {
         accountRepository.findById(id);
 
     }

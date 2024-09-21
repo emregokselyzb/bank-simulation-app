@@ -76,16 +76,12 @@ public class TransactionServiceServiceImpl implements TransactionService {
         return sender.getBalance().subtract(amount).compareTo(BigDecimal.ZERO) >=0;
     }
 
-    private boolean checkAccountOwnerShip(Account sender,Account receiver) {
-        if ((sender.getAccountType().equals(AccountType.SAVING) || receiver.getAccountType().equals(AccountType.SAVING))
-                && !sender.getUserId().equals(receiver.getUserId())) {
-            throw new AccountOwnerShipException("If one of the account is saving,user must be the same for sender and receiver");
+    private void checkAccountOwnerShip(Account sender,Account receiver) {
+        if((sender.getAccountType().equals(AccountType.SAVING)||receiver.getAccountType().equals(AccountType.SAVING))
+                && !sender.getUserId().equals(receiver.getUserId())){
+            throw new AccountOwnerShipException("If one of the account is saving, user must be the same for sender and receiver");
         }
-
-
     }
-
-
 
         private void findAccountById(UUID id) {
         accountRepository.findById(id);

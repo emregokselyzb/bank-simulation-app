@@ -1,9 +1,11 @@
 package com.cydeo.repository;
 
+import com.cydeo.exception.RecordNotFoundException;
 import com.cydeo.model.Account;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class AccountRepository {
 
@@ -13,5 +15,14 @@ public class AccountRepository {
     public Account save(Account account){
         accountList.add(account);
         return account;
+    }
+
+    public List<Account> findAll(){
+        return accountList;
+    }
+
+    public Account findById(UUID id){
+        return accountList.stream().filter(account -> account.getId().equals(id))
+                .findAny().orElseThrow(()->new RecordNotFoundException("Account does not exist in the database"));
     }
 }

@@ -11,20 +11,21 @@ import com.cydeo.repository.AccountRepository;
 import com.cydeo.repository.TransactionRepository;
 import com.cydeo.service.TransactionService;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
+@Component
 public class TransactionServiceServiceImpl implements TransactionService {
+
     @Value("${under_construction}")
     private boolean underConstruction;
     private final AccountRepository accountRepository;
     private final TransactionRepository transactionRepository;
-    private TransactionRepository .;
+
 
     public TransactionServiceServiceImpl(AccountRepository accountRepository, TransactionRepository transactionRepository) {
         this.accountRepository = accountRepository;
@@ -32,7 +33,7 @@ public class TransactionServiceServiceImpl implements TransactionService {
     }
 
     @Override
-    public TransactionService makeTransfer(Account sender, Account receiver, BigDecimal amount, Date creationDate, String message) {
+    public Transaction makeTransfer(Account sender, Account receiver, BigDecimal amount, Date creationDate, String message) {
         if (!underConstruction) {
 
             validateAccount(sender, receiver);
@@ -88,17 +89,20 @@ public class TransactionServiceServiceImpl implements TransactionService {
 
     }
 
+    @Override
     public List<Transaction> findAllTransaction(){
         return transactionRepository.findAll();
 
 
     }
 
+    @Override
     public List<Transaction> last10Transactions(){
         return transactionRepository.findLast10Transactions();
 
     }
 
+    @Override
     public List<Transaction> findTransactionListById(UUID id){
         return transactionRepository.findTransactionListByAccountId(id);
     }

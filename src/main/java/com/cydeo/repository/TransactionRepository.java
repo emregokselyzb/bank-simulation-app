@@ -25,13 +25,13 @@ public class TransactionRepository {
     }
 
     public List<Transaction> findLast10Transactions(){
-        return transactionList.stream().sorted(Comparator.comparing(Transaction::getCreateDate))
-                .reversed().limit(10).collect(Collectors.toList());
+        return transactionList.stream().sorted(Comparator.comparing(Transaction::getCreateDate).reversed())
+                .limit(10).collect(Collectors.toList());
     }
 
     public List<Transaction> findTransactionListByAccountId(UUID id){
         return transactionList.stream()
-                .filter(transaction-> transaction.getSender().equals(id)||transaction.getReceiver().equals(id)
+                .filter(transaction-> transaction.getSender().equals(id)||transaction.getReceiver().equals(id))
                         .collect(Collectors.toList());
     }
 

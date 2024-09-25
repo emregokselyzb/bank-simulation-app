@@ -6,6 +6,7 @@ import com.cydeo.model.Account;
 import com.cydeo.repository.AccountRepository;
 import com.cydeo.service.AccountService;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Component
+@Service
 public class AccountServiceImpl implements AccountService {
 
     private final AccountRepository accountRepository;

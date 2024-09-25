@@ -12,6 +12,7 @@ import com.cydeo.repository.TransactionRepository;
 import com.cydeo.service.TransactionService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -19,7 +20,8 @@ import java.util.List;
 import java.util.UUID;
 
 @Component
-public class TransactionServiceServiceImpl implements TransactionService {
+@Service
+public class TransactionServiceImpl implements TransactionService {
 
     @Value("${under_construction}")
     private boolean underConstruction;
@@ -27,7 +29,7 @@ public class TransactionServiceServiceImpl implements TransactionService {
     private final TransactionRepository transactionRepository;
 
 
-    public TransactionServiceServiceImpl(AccountRepository accountRepository, TransactionRepository transactionRepository) {
+    public TransactionServiceImpl(AccountRepository accountRepository, TransactionRepository transactionRepository) {
         this.accountRepository = accountRepository;
         this.transactionRepository = transactionRepository;
     }

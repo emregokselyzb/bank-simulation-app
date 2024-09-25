@@ -54,7 +54,7 @@ public class TransactionServiceServiceImpl implements TransactionService {
 
             receiver.setBalance(receiver.getBalance().add(amount));
         }else {
-            throw new BalanceNotSufficientException("Balance is not enough for this trnsfer");
+            throw new BalanceNotSufficientException("Balance is not enough for this transfer");
         }
     }
 

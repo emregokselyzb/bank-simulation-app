@@ -23,8 +23,8 @@ public class BankSimulationAppApplication {
 		TransactionService transactionService = container.getBean(TransactionService.class);
 
 //        create 2 accounts sender and receiver
-		Account sender = accountService.createNewAccount(BigDecimal.valueOf(70), new Date(), AccountType.SAVING, 1L);
-		Account receiver = accountService.createNewAccount(BigDecimal.valueOf(50), new Date(), AccountType.CHECKING, 2L);
+//		Account sender = accountService.createNewAccount(BigDecimal.valueOf(70), new Date(), AccountType.SAVING, 1L);
+//		Account receiver = accountService.createNewAccount(BigDecimal.valueOf(50), new Date(), AccountType.CHECKING, 2L);
 
 	}
 

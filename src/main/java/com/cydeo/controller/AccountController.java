@@ -34,14 +34,14 @@ public class AccountController {
 
     @GetMapping("/create-form")
     public String getCreateForm(Model model){
-        model.addAttribute("account", new AccountDTO());
+        model.addAttribute("accountDTO", new AccountDTO());
         model.addAttribute("accountTypes", AccountType.values());
 
         return "account/create.account";
     }
 
     @PostMapping
-    public String createAccount(@Valid @ModelAttribute("account") AccountDTO accountDTO, BindingResult bindingResult, Model model){
+    public String createAccount(@Valid @ModelAttribute("accountDTO") AccountDTO accountDTO, BindingResult bindingResult, Model model){
 
         if (bindingResult.hasErrors()){
             model.addAttribute("accountTypes",AccountType.values());

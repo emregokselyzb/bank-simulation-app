@@ -9,7 +9,6 @@ import com.cydeo.exception.BadRequestException;
 import com.cydeo.exception.BalanceNotSufficientException;
 import com.cydeo.exception.UnderConstructionException;
 import com.cydeo.mapper.TransactionMapper;
-import com.cydeo.repository.AccountRepository;
 import com.cydeo.repository.TransactionRepository;
 import com.cydeo.service.AccountService;
 import com.cydeo.service.TransactionService;
@@ -18,7 +17,6 @@ import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Component
@@ -46,7 +44,9 @@ public class TransactionServiceImpl implements TransactionService {
             executeBalanceAndUpdateIfRequired(amount, sender, receiver);
 
             TransactionDTO transactionDTO = new TransactionDTO(sender,receiver,amount,message,creationDate);
-            return transactionRepository.save(transactionMapper.convertToEntity(transactionDTO);
+             transactionRepository.save(transactionMapper.convertToEntity(transactionDTO));
+             return transactionDTO;
+
 
         } else {
             throw new UnderConstructionException("App is under construction,please try again later.");
@@ -105,13 +105,15 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public List<TransactionDTO> last10Transactions(){
 
-        List<Transaction> last10Transactions=transactionRepository.findLast10Transactions();
+        List<Transaction> last10Transactions=transactionRepository.find10Transactions();
         return last10Transactions.stream().map(transactionMapper::convertToDTO).collect(Collectors.toList());
 
     }
 
+
+
     @Override
-    public List<Transaction> findTransactionListById(Long id){
+    public List<TransactionDTO> findTransactionListById(Long id){
         List<Transaction> transactionList=transactionRepository.findTransactionListByAccountId(id);
         return transactionList.stream().map(transactionMapper::convertToDTO).collect(Collectors.toList());
     }

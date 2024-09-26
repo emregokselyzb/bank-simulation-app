@@ -1,29 +1,15 @@
 package com.cydeo.repository;
 
-import com.cydeo.exception.RecordNotFoundException;
-import com.cydeo.model.Account;
-import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
+import com.cydeo.entity.Account;
+import com.cydeo.enums.AccountStatus;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 import java.util.List;
-import java.util.UUID;
-@Component
-public class AccountRepository {
 
-    public static List<Account> accountList=new ArrayList<>();
+@Repository
+public interface AccountRepository extends JpaRepository<Account,Long> {
+
+    List<Account> findAllByAccountStatus(AccountStatus accountStatus);
 
 
-    public Account save(Account account){
-        accountList.add(account);
-        return account;
-    }
-
-    public List<Account> findAll(){
-        return accountList;
-    }
-
-    public Account findById(UUID id){
-        return accountList.stream().filter(account -> account.getId().equals(id))
-                .findAny().orElseThrow(()->new RecordNotFoundException("Account does not exist in the database"));
-    }
 }

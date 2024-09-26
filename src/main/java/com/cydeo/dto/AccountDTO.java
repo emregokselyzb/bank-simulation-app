@@ -1,5 +1,6 @@
 package com.cydeo.dto;
 
+import com.cydeo.enums.AccountStatus;
 import com.cydeo.enums.AccountType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,6 +27,8 @@ public class AccountDTO {
     private Date creationDate;
     @NotNull
     private Long userId;
+    private AccountStatus accountStatus;
+
 
 
 

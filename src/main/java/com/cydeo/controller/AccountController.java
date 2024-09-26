@@ -1,5 +1,6 @@
 package com.cydeo.controller;
 
+import com.cydeo.dto.AccountDTO;
 import com.cydeo.enums.AccountType;
 import com.cydeo.model.Account;
 import com.cydeo.service.AccountService;
@@ -33,22 +34,22 @@ public class AccountController {
 
     @GetMapping("/create-form")
     public String getCreateForm(Model model){
-        model.addAttribute("account", Account.builder().build());
+        model.addAttribute("account", new AccountDTO());
         model.addAttribute("accountTypes", AccountType.values());
 
         return "account/create.account";
     }
 
     @PostMapping
-    public String createAccount(@Valid @ModelAttribute("account") Account account, BindingResult bindingResult, Model model){
+    public String createAccount(@Valid @ModelAttribute("account") AccountDTO accountDTO, BindingResult bindingResult, Model model){
 
         if (bindingResult.hasErrors()){
             model.addAttribute("accountTypes",AccountType.values());
             return "account/create-account";
 
         }
-        System.out.println(account);
-        accountService.createNewAccount(account.getBalance(),new Date(),account.getAccountType(),account.getUserId());
+        System.out.println(accountDTO);
+        accountService.createNewAccount(accountDTO);
         return "redirect:/index";
     }
 

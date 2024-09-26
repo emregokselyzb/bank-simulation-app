@@ -2,8 +2,6 @@ package com.cydeo.controller;
 
 import com.cydeo.dto.AccountDTO;
 import com.cydeo.dto.TransactionDTO;
-import com.cydeo.model.Account;
-import com.cydeo.model.Transaction;
 import com.cydeo.service.AccountService;
 import com.cydeo.service.TransactionService;
 import org.springframework.stereotype.Controller;

@@ -2,7 +2,6 @@ package com.cydeo.controller;
 
 import com.cydeo.dto.AccountDTO;
 import com.cydeo.enums.AccountType;
-import com.cydeo.model.Account;
 import com.cydeo.service.AccountService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

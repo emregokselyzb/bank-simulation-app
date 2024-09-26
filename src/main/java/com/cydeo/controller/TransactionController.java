@@ -1,5 +1,7 @@
 package com.cydeo.controller;
 
+import com.cydeo.dto.AccountDTO;
+import com.cydeo.dto.TransactionDTO;
 import com.cydeo.model.Account;
 import com.cydeo.model.Transaction;
 import com.cydeo.service.AccountService;
@@ -29,7 +31,7 @@ public class TransactionController {
 
     @GetMapping("/make-transfer")
     public String getMakeTransfer(Model model){
-        model.addAttribute("transaction", Transaction.builder().build());
+        model.addAttribute("transactionDTO", new TransactionDTO());
         model.addAttribute("accounts",accountService.listAllAccount());
         model.addAttribute("lastTransactions",transactionService.last10Transactions());
 
@@ -38,16 +40,16 @@ public class TransactionController {
 
 
     @PostMapping("/transfer")
-    public String makeTransfer(@ModelAttribute("transaction")@Valid Transaction transaction, BindingResult bindingResult,Model model){
+    public String makeTransfer(@ModelAttribute("transaction")@Valid TransactionDTO transactionDTO, BindingResult bindingResult,Model model){
         if (bindingResult.hasErrors()){
             model.addAttribute("accounts",accountService.listAllAccount());
             model.addAttribute("lastTransactions",transactionService.last10Transactions());
             return "transaction/make-transfer";
         }
 
-        Account sender=accountService.retrieveByID(transaction.getSender());
-        Account receiver=accountService.retrieveByID(transaction.getSender());
-        transactionService.makeTransfer(sender,receiver,transaction.getAmount(),new Date(),transaction.getMessage());
+        AccountDTO sender=accountService.retrieveByID(transactionDTO.getSender().getId());
+        AccountDTO receiver=accountService.retrieveByID(transactionDTO.getSender().getId());
+        transactionService.makeTransfer(sender,receiver,transactionDTO.getAmount(),new Date(),transactionDTO.getMessage());
         return "redirect:/make-transfer";
     }
 

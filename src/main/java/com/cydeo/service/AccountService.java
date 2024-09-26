@@ -11,7 +11,7 @@ import java.util.UUID;
 
 public interface AccountService {
 
-   void createNewAccount(BigDecimal balance, Date createDate, AccountType accountType, Long userId);
+   void createNewAccount(AccountDTO accountDTO);
 
     List<AccountDTO> listAllAccount();
 
@@ -24,4 +24,6 @@ public interface AccountService {
     List<AccountDTO> listAllActiveAccount();
 
     void updateAccount(AccountDTO accountDTO);
+
+
 }

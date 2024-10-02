@@ -1,5 +1,6 @@
 package com.cydeo;
 
+import com.cydeo.dto.AccountDTO;
 import com.cydeo.enums.AccountType;
 import com.cydeo.service.AccountService;
 import com.cydeo.service.TransactionService;
@@ -22,8 +23,8 @@ public class BankSimulationAppApplication {
 		TransactionService transactionService = container.getBean(TransactionService.class);
 
 //        create 2 accounts sender and receiver
-//		Account sender = accountService.createNewAccount(BigDecimal.valueOf(70), new Date(), AccountType.SAVING, 1L);
-//		Account receiver = accountService.createNewAccount(BigDecimal.valueOf(50), new Date(), AccountType.CHECKING, 2L);
+    	AccountDTO sender = accountService.createNewAccount(BigDecimal.valueOf(70), new Date(), AccountType.SAVING, 1L);
+		AccountDTO receiver = accountService.createNewAccount(BigDecimal.valueOf(50), new Date(), AccountType.CHECKING, 2L);
 
 	}
 

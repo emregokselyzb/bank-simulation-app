@@ -22,6 +22,8 @@
 //    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 //
 //        return http
+//
+//
 //                .authorizeRequests()
 //                .antMatchers("/account/**").hasAuthority("Admin")
 //                .antMatchers("/transaction/**").hasAnyAuthority("Admin","Cashier")

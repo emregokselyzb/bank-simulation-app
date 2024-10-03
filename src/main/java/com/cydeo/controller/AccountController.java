@@ -34,7 +34,7 @@ public class AccountController {
         model.addAttribute("accountDTO", new AccountDTO());
         model.addAttribute("accountTypes", AccountType.values());
 
-        return "account/create.account";
+        return "account/create-account";
     }
 
     @PostMapping
@@ -53,6 +53,13 @@ public class AccountController {
     @GetMapping("/delete/{id}")
     public String getDeleteAccount(@PathVariable("id") Long id){
 
+        accountService.activateAccount(id);
+
+        return "redirect:/index";
+    }
+
+    @GetMapping("/activate/{id}")
+    public String activateAccount(@PathVariable("id") Long id){
         accountService.activateAccount(id);
 
         return "redirect:/index";

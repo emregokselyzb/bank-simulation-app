@@ -38,7 +38,7 @@ public class TransactionController {
 
 
     @PostMapping("/transfer")
-    public String makeTransfer(@ModelAttribute("transaction")@Valid TransactionDTO transactionDTO, BindingResult bindingResult,Model model){
+    public String makeTransfer(@ModelAttribute("transactionDTO")@Valid TransactionDTO transactionDTO, BindingResult bindingResult,Model model){
         if (bindingResult.hasErrors()){
             model.addAttribute("accounts",accountService.listAllAccount());
             model.addAttribute("lastTransactions",transactionService.last10Transactions());
@@ -46,7 +46,7 @@ public class TransactionController {
         }
 
         AccountDTO sender=accountService.retrieveByID(transactionDTO.getSender().getId());
-        AccountDTO receiver=accountService.retrieveByID(transactionDTO.getSender().getId());
+        AccountDTO receiver=accountService.retrieveByID(transactionDTO.getReceiver().getId());
         transactionService.makeTransfer(sender,receiver,transactionDTO.getAmount(),new Date(),transactionDTO.getMessage());
         return "redirect:/make-transfer";
     }
